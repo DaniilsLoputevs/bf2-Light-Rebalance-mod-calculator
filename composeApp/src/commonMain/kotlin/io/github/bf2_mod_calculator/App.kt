@@ -12,13 +12,18 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import bf2_mod_calculator.composeapp.generated.resources.*
+import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.*
+import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.Res
+import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.ic_dark_mode
+import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.ic_light_mode
+import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.theme
 import io.github.bf2_mod_calculator.theme.AppTheme
 import io.github.bf2_mod_calculator.theme.LocalThemeIsDark
 import kotlinx.coroutines.isActive
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import kotlin.run
 
 @Composable
 internal fun App() = AppTheme {
