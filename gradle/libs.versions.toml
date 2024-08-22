@@ -1,0 +1,21 @@
+[versions]
+
+kotlin = "2.0.20-RC"
+compose = "1.7.0-alpha02"
+napier = "2.7.1"
+kotlinx-serialization = "1.7.1"
+kstore = "0.8.0"
+
+[libraries]
+
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+
+
+[plugins]
+
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
