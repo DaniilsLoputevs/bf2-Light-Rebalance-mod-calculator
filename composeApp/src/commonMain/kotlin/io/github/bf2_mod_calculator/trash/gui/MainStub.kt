@@ -1,4 +1,4 @@
-package io.github.bf2_mod_calculator.gui
+package io.github.bf2_mod_calculator.trash.gui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.seanproctor.datatable.DataColumn
 import com.seanproctor.datatable.material3.DataTable
 import io.github.bf2_mod_calculator.compose.AutoCompleteTextField
+import io.github.bf2_mod_calculator.compose.warpWithTooltipTextAre
 
 data class MyData(
     val field1: String,

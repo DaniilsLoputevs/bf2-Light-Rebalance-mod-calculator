@@ -1,10 +1,8 @@
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import java.awt.Dimension
-import io.github.bf2_mod_calculator.gui.MainStub
 import io.github.bf2_mod_calculator.main_page.MainPage
 import io.github.bf2_mod_calculator.parser.MainTableContentProvider
 import io.github.bf2_mod_calculator.theme.AppTheme
@@ -26,9 +24,10 @@ fun main() = application {
 //          DropdownWithFilterPreview()
 //            SelectableTablePreview()
 //            MainPage(mainTableContentProvider.content())
-            MainStub()
-//            MainPage()
-
+//            MainStub()
+            MainPage()
+//            aaa()
+//            MyApp()
         }
     }
 }

@@ -1,6 +1,6 @@
 package io.github.bf2_mod_calculator.models
 
-class CsvLine(
+class CsvRow(
     val calibre: Calibre,
     val ammo: Ammo,
     val gunName: String,

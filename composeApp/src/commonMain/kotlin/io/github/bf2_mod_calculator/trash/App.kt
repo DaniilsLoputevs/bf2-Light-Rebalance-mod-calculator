@@ -1,6 +1,8 @@
-package io.github.bf2_mod_calculator
+package io.github.bf2_mod_calculator.trash
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -13,17 +15,12 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.*
-import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.Res
-import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.ic_dark_mode
-import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.ic_light_mode
-import bf2_light_rebalance_mod_calculator.composeapp.generated.resources.theme
 import io.github.bf2_mod_calculator.theme.AppTheme
 import io.github.bf2_mod_calculator.theme.LocalThemeIsDark
 import kotlinx.coroutines.isActive
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import kotlin.run
 
 @Composable
 internal fun App() = AppTheme {

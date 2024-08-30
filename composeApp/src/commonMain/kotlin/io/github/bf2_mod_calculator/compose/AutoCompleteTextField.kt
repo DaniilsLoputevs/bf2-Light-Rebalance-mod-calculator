@@ -14,6 +14,7 @@ import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -29,13 +30,14 @@ import androidx.compose.ui.unit.toSize
  * copy & then adapted from: [GitHub: MaheshaGubbi - mgv_auto_search_text](https://github.com/MaheshaGubbi/mgv_auto_search_textfield)
  */
 @Composable fun AutoCompleteTextField(
+    value: String = "",
     suggestions: Iterable<String>,
     inputTitle: String,
     placeholder: String = "",
-    enable : Boolean = true,
+    enable: Boolean = true,
     onSelect: (String) -> Unit
 ) {
-    var currentTextFieldValue by remember { mutableStateOf("") }
+    var currentTextFieldValue by remember { mutableStateOf(value) }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     var isExpanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -47,6 +49,7 @@ import androidx.compose.ui.unit.toSize
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = { isExpanded = false }
+//                onClick = { isExpanded = !isExpanded }
             )
     ) {
         Text(
@@ -69,6 +72,10 @@ import androidx.compose.ui.unit.toSize
                         )
                         .onGloballyPositioned { coordinates ->
                             textFieldSize = coordinates.size.toSize()
+                        }
+                        .onFocusChanged { focusState ->
+//                            println("focus state is ${focusState}")
+                            isExpanded = focusState.isFocused
                         },
                     value = currentTextFieldValue,
                     onValueChange = {
@@ -106,8 +113,13 @@ import androidx.compose.ui.unit.toSize
                         .width(textFieldSize.width.dp),
                     shape = RoundedCornerShape(10.dp)
                 ) {
+                    // Состояние скролла
+//                    val scrollState = rememberScrollState()
+
+                    // TODO: при возможности добавить ВИДИМОСТЬ скроллбару
                     LazyColumn(
-                        modifier = Modifier.heightIn(max = 150.dp),
+                        modifier = Modifier.heightIn(max = 150.dp)
+//                            .verticalScroll(scrollState)
                     ) {
                         val remainSuggestions = when (currentTextFieldValue.isNotEmpty()) {
                             true -> suggestions
@@ -118,24 +130,33 @@ import androidx.compose.ui.unit.toSize
                                 .distinct()
                                 .sorted()
 
-                            false -> suggestions.sorted()
-                                .distinct()
+                            false -> suggestions.sorted().distinct()
                         }
+
                         items(remainSuggestions) { suggestion ->
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
+                                        println("item.clickable($suggestion)")
                                         currentTextFieldValue = suggestion
                                         isExpanded = false
                                         onSelect(suggestion) // вызов лямбды с бизнес логикой
                                     }
                                     .padding(10.dp)
                             ) {
-                                Text(text = suggestion, fontSize = 16.sp)
+                                Text(text = suggestion, fontSize = 16.sp, modifier = Modifier.clickable{
+                                    println("text click=$suggestion")
+                                })
                             }
                         }
                     }
+
+//                    VerticalScrollbar(
+//                        adapter = rememberScrollbarAdapter(scrollState),
+//                        modifier = Modifier.fillMaxHeight()
+//                    )
+
                 }
             }
         }

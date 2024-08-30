@@ -24,6 +24,7 @@ kotlin {
 
             runtimeOnly("androidx.compose.ui:ui-tooling-preview:1.6.8")
             implementation("com.seanproctor:data-table-material3:0.5.1")
+            implementation("io.github.windedge.table:table-m3:0.1.8")
         }
 
         commonTest.dependencies {

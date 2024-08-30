@@ -1,4 +1,4 @@
-package io.github.bf2_mod_calculator.gui
+package io.github.bf2_mod_calculator.trash.gui
 
 //import android.os.Bundle
 //import androidx.activity.ComponentActivity
@@ -84,8 +84,6 @@ val animals = listOf(
 
 @Composable
 fun AutoComplete() {
-
-
 
 
     var category by remember { mutableStateOf("") }
