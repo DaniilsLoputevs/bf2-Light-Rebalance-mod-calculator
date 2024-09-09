@@ -45,12 +45,6 @@ import androidx.compose.ui.unit.toSize
     Column(
         modifier = Modifier
             .padding(30.dp)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = { isExpanded = false }
-//                onClick = { isExpanded = !isExpanded }
-            )
     ) {
         Text(
             modifier = Modifier.padding(start = 3.dp, bottom = 2.dp),
@@ -72,10 +66,6 @@ import androidx.compose.ui.unit.toSize
                         )
                         .onGloballyPositioned { coordinates ->
                             textFieldSize = coordinates.size.toSize()
-                        }
-                        .onFocusChanged { focusState ->
-//                            println("focus state is ${focusState}")
-                            isExpanded = focusState.isFocused
                         },
                     value = currentTextFieldValue,
                     onValueChange = {
