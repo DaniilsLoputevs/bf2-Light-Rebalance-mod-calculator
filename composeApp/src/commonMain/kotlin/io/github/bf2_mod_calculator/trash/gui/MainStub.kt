@@ -69,9 +69,9 @@ val dataList = listOf(
 //        AutoComplete()
 
 
-        AutoCompleteTextField(suggestions = animals, inputTitle = "Animal 1", placeholder = "Enter animal name") {
-            println("print = $it")
-        }
+//        AutoCompleteTextField(suggestions = animals, inputTitle = "Animal 1", placeholder = "Enter animal name") {
+//            println("print = $it")
+//        }
 
 
         // Заголовки столбцов

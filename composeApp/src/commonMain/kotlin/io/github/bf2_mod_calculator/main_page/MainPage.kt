@@ -9,27 +9,38 @@ import io.github.bf2_mod_calculator.parser.mainPageContent
 
 @Composable fun MainPage() {
     Column {
+//        val calibreSuggestions = mainPageContent.cartridgesForCalibre.keys
+//        var selectedCalibre by remember { mutableStateOf("") }
+////        var selectedCalibre by remember { mutableStateOf("7.62x51") } // develop & debug
+//
+//        val ammoSuggestions by remember {
+//            derivedStateOf { mainPageContent.cartridgesForCalibre[selectedCalibre] ?: emptyList() }
+//        }
+//        var selectedAmmo by remember { mutableStateOf("") }
+////        var selectedAmmo by remember { mutableStateOf("SubSon") } // develop & debug
+//
+//
+//        val ammoInputEnable by remember {
+//            derivedStateOf { selectedCalibre.isNotBlank() }
+//        }
+////        val ammoInputEnable = true
+
         val calibreSuggestions = mainPageContent.cartridgesForCalibre.keys
+
         var selectedCalibre by remember { mutableStateOf("") }
-//        var selectedCalibre by remember { mutableStateOf("7.62x51") } // develop & debug
+        val isCalibreSelected by remember { derivedStateOf { selectedCalibre.isNotBlank() } }
 
         val ammoSuggestions by remember {
             derivedStateOf { mainPageContent.cartridgesForCalibre[selectedCalibre] ?: emptyList() }
         }
         var selectedAmmo by remember { mutableStateOf("") }
-//        var selectedAmmo by remember { mutableStateOf("SubSon") } // develop & debug
 
-
-        val ammoInputEnable by remember {
-            derivedStateOf { selectedCalibre.isNotBlank() }
-        }
-//        val ammoInputEnable = true
 
         //TODO : починить выбор, сейчас 1 подпункт, а должно быть 2
         Row {
             AutoCompleteTextField(
                 suggestions = calibreSuggestions,
-                inputTitle = "Калибр",
+                inputLabel = "Калибр",
                 placeholder = "Начните печатать название Калибра..."
             ) {
                 println("LOG: selectedCalibre = $it")
@@ -40,15 +51,19 @@ import io.github.bf2_mod_calculator.parser.mainPageContent
             AutoCompleteTextField(
                 value = selectedCalibre,
                 suggestions = ammoSuggestions,
-                inputTitle = "Боеприпас",
+                inputLabel = "Боеприпас",
                 placeholder = "Начните печатать название Боеприпаса...",
-                enable = ammoInputEnable
+                enable = isCalibreSelected
             ) {
                 println("LOG: selectedAmmo = $it")
                 selectedAmmo = it
             }
         }
 
-        GunTable(mainPageContent.tableLinesForAmmo[selectedAmmo] ?: emptyList())
+//        GunTable(mainPageContent.tableLinesForAmmo[selectedAmmo] ?: emptyList())
+        val gunTableContent by remember {
+            derivedStateOf { mainPageContent.tableLinesForAmmo[selectedAmmo] ?: emptyList() }
+        }
+        GunTable(gunTableContent)
     }
 }

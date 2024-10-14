@@ -60,4 +60,9 @@ class GunTableContentLine(
         distanceThenReduceDamageStart_meters.toBigDecimal(),
         distanceThenReducedDamageIsMinumal_meters.toBigDecimal()
     )
+
+    override fun toString(): String {
+        return "GunTableContentLine(gunName='$gunName')"
+    }
+
 }

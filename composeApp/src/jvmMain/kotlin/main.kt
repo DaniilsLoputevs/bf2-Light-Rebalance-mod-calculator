@@ -6,6 +6,7 @@ import java.awt.Dimension
 import io.github.bf2_mod_calculator.main_page.MainPage
 import io.github.bf2_mod_calculator.parser.MainTableContentProvider
 import io.github.bf2_mod_calculator.theme.AppTheme
+import io.github.bf2_mod_calculator.trash.Demo_SearchableExposedDropdownMenuBox
 
 fun main() = application {
     Window(
@@ -28,6 +29,7 @@ fun main() = application {
             MainPage()
 //            aaa()
 //            MyApp()
+//            Demo_SearchableExposedDropdownMenuBox()
         }
     }
 }

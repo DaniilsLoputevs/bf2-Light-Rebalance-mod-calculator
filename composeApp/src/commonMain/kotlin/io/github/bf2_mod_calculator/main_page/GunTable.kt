@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.github.bf2_mod_calculator.compose.NaN
 import io.github.bf2_mod_calculator.compose.OnlyNumberTextField
 import io.github.bf2_mod_calculator.models.GunTableContentLine
 import java.math.BigDecimal
@@ -41,7 +42,11 @@ import java.math.BigDecimal
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 val defaultDistance = remember { 100.toBigDecimal() }
-                var reducedDamage by remember { mutableStateOf(gun.calculateReducedDamage(defaultDistance)) }
+                var reducedDamageText by remember {
+                    mutableStateOf(
+                        gun.calculateReducedDamage(defaultDistance).toPlainString()
+                    )
+                }
 
                 Cell(gun.gunName)
                 Cell(gun.bulletSpeedFromGun.toPlainString())
@@ -52,10 +57,13 @@ import java.math.BigDecimal
                 Cell(gun.distanceThenReducedDamageIsMinumal_meters.toPlainString())
                 Cell(gun.damageReducePerMeter.toPlainString()) // calculated by formula cell value
                 DistanceCell(defaultDistance) { updatedDistance -> // user input value
-                    reducedDamage = gun.calculateReducedDamage(updatedDistance)
-                    println("gun=$gun | updatedDistance=$updatedDistance | reducedDamage=$reducedDamage")
+                    reducedDamageText =
+                        if (updatedDistance == NaN) NaN
+                        else gun.calculateReducedDamage(updatedDistance.toBigDecimal()).toPlainString()
+
+                    println("gun=$gun | updatedDistance=$updatedDistance | reducedDamage=$reducedDamageText")
                 }
-                Cell(reducedDamage.toPlainString()) // calculated by formula cell value
+                Cell(reducedDamageText) // calculated by formula cell value
 
             }
         }
@@ -76,7 +84,7 @@ private val RowScope.headerStyle: Modifier get() = Modifier.weight(1f)
     Text(text = text, modifier = this.headerStyle)
 }
 
-@Composable private fun RowScope.DistanceCell(value: BigDecimal, onValueChange: (BigDecimal) -> Unit) =
+@Composable private fun RowScope.DistanceCell(value: BigDecimal, onValueChange: (String) -> Unit) =
     OnlyNumberTextField(
         value = value,
         modifier = Modifier.weight(1f),

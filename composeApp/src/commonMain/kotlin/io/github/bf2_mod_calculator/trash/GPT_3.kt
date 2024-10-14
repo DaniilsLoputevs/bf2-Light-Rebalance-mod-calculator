@@ -61,7 +61,7 @@ fun GunDataTable(content: List<GunData>) {
 //                        gunData.distance = newValue
                         // Логика для обновления значения Damage on distance
 //                    gunData.damageOnDistance = calculateDamageOnDistance(gunData.damage, newValue.text)
-                        gunData.damageOnDistance = calculateDamageOnDistance(gunData.damage, newValue.toPlainString())
+                        gunData.damageOnDistance = calculateDamageOnDistance(gunData.damage, newValue)
                         component_distanceDamage = gunData.damageOnDistance
 
                     })

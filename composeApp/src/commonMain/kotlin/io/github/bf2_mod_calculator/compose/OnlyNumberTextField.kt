@@ -8,27 +8,45 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import java.math.BigDecimal
 import java.util.regex.Pattern
 
+const val NaN = "NaN"
+
+/**
+ * Разрешены [0-9, ',', '.', ' ']
+ *
+ * ввод левые символы - НЕ обновляем displayText, НО не трогаем Метры
+ * ввод Точки или Запятой - обновляем displayText, НО не трогаем Метры
+ * ввод пустой строки - обновляем displayText, Метры = NaN
+ */
 @Composable fun OnlyNumberTextField(
     value: Number = 100,
     modifier: Modifier = Modifier,
-    onValueUpdated: (BigDecimal) -> Unit
+    onValueUpdated: (String) -> Unit
 ) {
 
-    var textState by remember { mutableStateOf("" + value) }
+    var displayText by remember { mutableStateOf("" + value) }
     val focusManager = LocalFocusManager.current
 
     TextField(
-        value = textState,
+        value = displayText,
         onValueChange = {
-            if (it.isEmpty() || it.isNumber()) {
-                textState = it
-                onValueUpdated(textState.toBigDecimal())
-            }
             println("input = '$it'")
-            println("state = '$textState'")
+            when {
+                it.isBlank() -> {
+                    displayText = ""
+                    onValueUpdated(NaN)
+                }
+                it.isNotBlank() && (it.endsWith('.') || it.endsWith('.')) -> displayText = it
+                it.isNumber() -> {
+                    displayText = it
+                    onValueUpdated(displayText)
+                }
+                else -> {
+                    println("что-то не так с input=$it")
+                }
+            }
+            println("state = '$displayText'")
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Decimal,
